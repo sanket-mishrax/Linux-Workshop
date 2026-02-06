@@ -1404,43 +1404,43 @@ Dump of assembler code for function main:
 
 ### OS Forensics
 
-For this first piece, we'll use `/proc` to find and modify variables (in this example, an ASCII string) contained inside the virtual memory of a running process, and learn some cool things along the way.
+In this first section, we’ll explore how the `/proc` filesystem can be used to locate and alter variables stored in the virtual memory of a running process. The example focuses on modifying an ASCII string, and along the way, we’ll uncover some interesting details about how processes manage memory.
 
-## Prerequisites
+### Prerequisites
 
-In order to fully understand this article, you need to know:
+To get the most out of this article, you should be familiar with:
 
-- The basics of the C programming language
-- Some Python
-- The very basics of the Linux filesystem and the shell
+- Basic concepts of the C programming language  
+- Some Python  
+- Fundamental knowledge of the Linux filesystem and command-line usage  
 
-## Virtual Memory
 
-In computing, virtual memory is a memory management technique that is implemented using both hardware and software. It maps memory addresses used by a program, called virtual addresses, into physical addresses in computer memory. Main storage (as seen by a process or task) appears as a contiguous address space, or collection of contiguous segments. The operating system manages virtual address spaces and the assignment of real memory to virtual memory. Address translation hardware in the CPU, often referred to as a memory management unit or MMU, automatically translates virtual addresses to physical addresses. Software within the operating system may extend these capabilities to provide a virtual address space that can exceed the capacity of real memory and thus reference more memory than is physically present in the computer.
+Address translation is handled automatically by dedicated CPU hardware, commonly known as the memory management unit (MMU). In addition, the operating system can extend this mechanism to support virtual address spaces larger than the available physical memory, enabling programs to reference more memory than is actually installed through techniques such as paging.
 
-The primary benefits of virtual memory include freeing applications from having to manage a shared memory space, increased security due to memory isolation, and being able to conceptually use more memory than might be physically available, using the technique of paging.
+Key advantages of memory include relieving applications from managing shared memory directly, improving security through memory isolation, and allowing systems to effectively use more memory than is physically available.
 
-You can read more about the virtual memory on [Wikipedia](https://en.wikipedia.org/wiki/Virtual_memory).
+You can read more about memory on [Wikipedia](https://en.wikipedia.org/wiki/Virtual_memory).
 
-- Each process has its own virtual memory
-- The amount of virtual memory depends on your system's architecture
-- Each OS handles virtual memory differently, but for most modern operating systems, the virtual memory of a process looks like this:
+Some important points to remember:
 
-![virtual memory](https://s3-us-west-1.amazonaws.com/holbertonschool/medias/virtual_memory.png)
+- Each process has its own independent virtual memory space  
+- The size of the virtual memory space depends on the system architecture  
+- Although implementations vary across operating systems, most modern systems organize a process’s virtual memory in a similar way  
 
-In the high memory addresses you can find (this is a non exhaustive list, there's much more to be found, but that's not today's topic):
+At higher memory addresses, you’ll typically find items such as:
 
-- The command line arguments and environment variables
-- The stack, growing "downwards". This may seem counter-intuitive, but this is the way the stack is implemented in virtual memory
+- Command-line arguments and environment variables  
+- The stack, which grows downward in memory, even though this may feel counterintuitive  
 
-In the low memory addresses you can find:
+At lower memory addresses, you’ll usually find:
 
-- Your executable (it's a little more complicated than that, but this is enough to understand the rest of this article)
-- The heap, growing "upwards"
+- The executable itself (simplified here for clarity)  
+- The heap, which grows upward in memory  
 
-The heap is a portion of memory that is dynamically allocated (i.e. containing memory allocated using `malloc`).
+The heap is used for dynamic memory allocation, such as memory requested with `malloc`.
 
-Also, keep in mind that **virtual memory is not the same as RAM**.
+Finally, it’s important to note that virtual memory and RAM are not the same thing.
+
 
 ## C program
 
