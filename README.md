@@ -681,7 +681,7 @@ dr-xr-xr-x  32 sanket sanket  0 Feb  6 06:49 task
 sanket@hydra:/proc/21489$ cat maps (check!)
 ```
 
-### Increasing the priority of process
+### Checking the priority of process
 The quickest, most basic way to view niceness information is to use the top command. It displays this information by default in the fourth column (left to right) and therefore doesn't require any additional options or flags.
 
 The other and slightly more involved method is to use the ps command with a generous helping of formatting options. The following command will display processes with their process IDs, name, niceness level, and scheduling class (sorted descending):
@@ -1240,6 +1240,19 @@ sanket@hydra:~$ ps axo pid,comm,nice,cls --sort=-nice
   20322 kworker/u68:2-r -20  TS
 sanket@hydra:~$ 
 ```
+
+### Increasing priority of process
+
+> sudo nice -n -5 loop.py
+>
+> Priority is controlled by a value called nice
+
+Range: -20 (highest priority) to +19 (lowest priority)
+
+Default for normal processes: 0
+
+Lower number = higher priority
+
 
 ### Process becomes Zombie and Orphans
 
