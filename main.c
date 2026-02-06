@@ -12,7 +12,7 @@ int main(void)
 {
 	char *s;
 
-	s = strdup("Holberton");
+	s = strdup("LinuxWorkshop");
 	if (s == NULL)
 	{
 		fprintf(stderr, "Can't allocate mem with malloc\n");
