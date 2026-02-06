@@ -1446,6 +1446,8 @@ Finally, it’s important to note that virtual memory and RAM are not the same t
 
 Let's start with this simple C program:
 
+> run main.c
+
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -1490,7 +1492,7 @@ DESCRIPTION
        Memory for the new string is obtained with malloc(3), and can be freed with free(3).
 ```
 
-_Take a moment to think before going further. Based on what we said earlier about virtual memory, where do you think the duplicate string will be located? At a high or low memory address?_
+_Take a moment to think before going further. Based on what we understood about virtual memory, where do you think the duplicate string will be located? At a high or low memory address?_
 
 Probably in the lower addresses (in the heap). Let's compile and run our small C program to test our hypothesis:
 
@@ -1507,7 +1509,7 @@ Our duplicated string is located at the address `0x5ee3215d82a0`. Great. But is 
 
 The size of the virtual memory of a process depends on your system architecture. In this example I am using a 64-bit machine, so theoretically the size of each process' virtual memory is 2^64 bytes. In theory, the highest memory address possible is `0xffffffffffffffff` (1.8446744e+19), and the lowest is `0x0`.
 
-`0x1822010` is small compared to `0xffffffffffffffff`, so the duplicated string is probably located at a lower memory address. We will be able to confirm this when we will be looking at the `proc` filesystem).
+`0x5ee3215d82a0` is small compared to `0xffffffffffffffff`, so the duplicated string is probably located at a lower memory address. We will be able to confirm this when we will be looking at the `proc` filesystem).
 
 ## The proc filesystem
 
@@ -1615,6 +1617,8 @@ We can use the program `ps` to get the PID of a running process (`man ps`).
 ## C program
 
 We now have everything we need to write a script or program that finds a string in the heap of a running process and then replaces it with another string (of the same length or shorter). We will work with the following simple program that infinitely loops and prints a "strduplicated" string.
+
+> run loop.c
 
 ```c
 #include <stdlib.h>
@@ -1876,6 +1880,8 @@ _If you would like, stop reading now and try to write a script or program that f
 ### Overwriting the string in the virtual memory
 
 We'll be using Python 3 for writing the script, but you could write this in any language. Here is the code:
+
+> run read_write_heap.py
 
 ```python
 #!/usr/bin/env python3
