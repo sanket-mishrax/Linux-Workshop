@@ -383,7 +383,7 @@ And yeah, there’s a learning curve. Linux will absolutely ask you to choose be
 anymore. But once it clicks, it *clicks*. You get clean PDFs, beautiful equations, scripts that automate everything, and a workflow that scales instead of collapsing under its own mess. 
 It’s not flashy—but it’s elegant, stubborn, and deeply satisfying.
 
-If you want, I can make it more technical, more humorous, or aim it at a specific audience (students, devs, academics, chaos gremlins who love terminals).
+
 ```
 
 ### Finding all occurrences of a string in the given file.
